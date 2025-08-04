@@ -1,5 +1,8 @@
 import * as yup from "yup";
-import type { LoginFormDataType } from "@/constants/pages-constants/auth-constants/type";
+interface LoginFormDataType {
+  taiKhoan: string;
+  matKhau: string;
+}
 
 const schema: yup.ObjectSchema<LoginFormDataType> = yup
   .object({

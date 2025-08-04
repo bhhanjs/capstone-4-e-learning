@@ -57,7 +57,7 @@ export default function Register() {
     onSuccess: () => {
       console.log("tanstack register: success");
       toast.success("Register successful!");
-      // navigate(PATH.DANG_NHAP);
+      navigate(PATH.DANG_NHAP);
       reset();
     },
     onError: (error) => {

@@ -44,7 +44,7 @@ export default function Login() {
       console.log("tanstack login response :", response);
       toast.success("Login successful!");
       dispatch(setUser(response));
-      // navigate(PATH.HOME);
+      navigate(PATH.HOME);
       reset();
     },
     onError: (error) => {

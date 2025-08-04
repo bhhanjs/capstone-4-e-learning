@@ -1,5 +1,12 @@
 import * as yup from "yup";
-import type { RegisterFormDataType } from "@/constants/pages-constants/auth-constants/type";
+interface RegisterFormDataType {
+  taiKhoan: string;
+  matKhau: string;
+  hoTen: string;
+  soDT: string;
+  maNhom: string;
+  email: string;
+}
 
 const PHONE_REGEX = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
 const PASSWORD_REGEX =
