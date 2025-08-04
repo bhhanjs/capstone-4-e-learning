@@ -1,0 +1,5 @@
+export const TOKEN_CYBERSOFT= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA4MiIsIkhldEhhblN0cmluZyI6IjIwLzExLzIwMjUiLCJIZXRIYW5UaW1lIjoiMTc2MzU5NjgwMDAwMCIsIm5iZiI6MTczNDI4NTYwMCwiZXhwIjoxNzYzNzQ4MDAwfQ.QbEZveH7dLuVnfzAyNgNtcIQzJu-95ShhXNZhmFB-H8"
+export const  API_BASE_URL = "https://elearningnew.cybersoft.edu.vn/api"
+export const ADMIN = "admin"
+export const USER = "user"
+export const LOCAL_USER = "userInfo"
