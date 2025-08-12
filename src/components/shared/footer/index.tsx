@@ -28,7 +28,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to={PATH.DANH_MUC_KHOA_HOC} className="footer__link-page">
+                <Link to={PATH.KHOA_HOC_THEO_DANH_MUC} className="footer__link-page">
                   Course
                 </Link>
               </li>

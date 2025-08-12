@@ -1,4 +1,4 @@
-import { useEffect, ChangeEvent, KeyboardEvent, useState } from "react";
+import { useEffect, type ChangeEvent, type KeyboardEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
@@ -81,7 +81,7 @@ export default function MediumScreen() {
                   {danhMuc.map((item) => (
                     <DropdownMenuItem key={item.maDanhMuc} asChild>
                       <Link
-                        to={PATH.DANH_MUC_THEO_DANH_MUC.replace(
+                        to={PATH.KHOA_HOC_THEO_DANH_MUC.replace(
                           ":maDanhMuc",
                           item.maDanhMuc
                         )}

@@ -24,7 +24,7 @@ const useRouterElements = function (): ReactElement | null {
           element: <HomePage />,
         },
         {
-          path: PATH.DANH_MUC_THEO_DANH_MUC,
+          path: PATH.KHOA_HOC_THEO_DANH_MUC,
           element: <KhoaHocTheoDanhMuc />,
         },
 
@@ -38,8 +38,8 @@ const useRouterElements = function (): ReactElement | null {
         },
         {
           path: PATH.THONG_TIN_TAI_KHOAN,
-          element: <ThongTinTaiKhoan/>
-        }
+          element: <ThongTinTaiKhoan />,
+        },
       ],
     },
     {
