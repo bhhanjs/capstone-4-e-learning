@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, ChangeEvent, KeyboardEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import {
@@ -13,7 +13,7 @@ import PATH from "@/routes/path";
 import danhMucAPI from "@/apis/apiCalls/danh-muc-api";
 import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
-import { setDanhMuc } from "@/store/slices/courses";
+import { setDanhMuc, setSearchKey } from "@/store/slices/courses";
 import { ChevronRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import devLog from "@/utils/loggerFn";
@@ -24,11 +24,10 @@ interface DanhMuc {
 }
 
 export default function MediumScreen() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { danhMuc } = useAppSelector((state) => state.coursesSlice);
-  // console.log("dispatch:", dispatch);
-  // console.log("danhMuc:", danhMuc);
 
   const { data, isLoading, isError } = useQuery<DanhMuc[]>({
     queryKey: ["danhMuc"],
@@ -36,14 +35,25 @@ export default function MediumScreen() {
   });
 
   devLog("data:", data);
-  devLog("isLoading:", isLoading);
-  devLog("isError:", isError);
 
   useEffect(() => {
     if (!isLoading && data) {
       dispatch(setDanhMuc(data));
     }
   }, [data, dispatch, isLoading]);
+
+  const handleSearchChange = function (value: string) {
+    setSearchValue(value);
+  };
+
+  const handleSearchKeyDown = function (
+    event: KeyboardEvent<HTMLInputElement>
+  ) {
+    if (event.key === "Enter") {
+      dispatch(setSearchKey(searchValue));
+      navigate(PATH.TIM_KIEM_KHOA_HOC);
+    }
+  };
 
   return (
     <>
@@ -56,11 +66,8 @@ export default function MediumScreen() {
               <img src={logo} alt="Logo" className="h-[60px] w-auto" />
             </Link>
 
-            <div
-              onPointerEnter={() => setOpenMenu(true)}
-              onPointerLeave={() => setOpenMenu(false)}
-            >
-              <DropdownMenu open={openMenu} onOpenChange={setOpenMenu}>
+            <div>
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
@@ -74,7 +81,10 @@ export default function MediumScreen() {
                   {danhMuc.map((item) => (
                     <DropdownMenuItem key={item.maDanhMuc} asChild>
                       <Link
-                        to={`/course/${item.tenDanhMuc}`}
+                        to={PATH.DANH_MUC_THEO_DANH_MUC.replace(
+                          ":maDanhMuc",
+                          item.maDanhMuc
+                        )}
                         className="flex justify-between items-center gap-7"
                         aria-label={`Go to ${item.tenDanhMuc}`}
                       >
@@ -92,6 +102,10 @@ export default function MediumScreen() {
               type="text"
               placeholder="Search for everything..."
               className="h-12"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleSearchChange(event.target.value)
+              }
+              onKeyDown={handleSearchKeyDown}
             />
           </div>
 

@@ -1,18 +1,30 @@
-import useSearchCourses from "@/hooks/hook-search-courses";
-import { useAppSelector } from "@/hooks/hook";
+import khoaHocTheoDanhMucApi from "@/apis/apiCalls/khoa-hoc-theo-danh-muc";
+import type { KhoaHoc } from "@/apis/apiCalls/khoa-hoc-theo-danh-muc";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import devLog from "@/utils/loggerFn";
-import { Skeleton } from "@/components/ui/skeleton";
 import CourseCard from "../../components/shared/body/course-card";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function TimKiemKhoaHoc() {
-  const { searchKey } = useAppSelector((state) => state.coursesSlice);
-  console.log("searchKey", searchKey);
+export default function KhoaHocTheoDanhMuc() {
+  const { maDanhMuc } = useParams();
+  const MaNhom = "GP01";
 
-  const { data, isLoading, isError } = useSearchCourses(searchKey);
+  console.log("maDanhMuc:", maDanhMuc);
 
-  devLog("data search:", data);
-  devLog(isLoading);
-  devLog(isError);
+  const { data, isLoading, isError } = useQuery<KhoaHoc[]>({
+    queryKey: ["khoa hoc theo danh muc", maDanhMuc, MaNhom],
+    queryFn: () =>
+      khoaHocTheoDanhMucApi({
+        maDanhMuc: maDanhMuc || "",
+        MaNhom,
+      }),
+    enabled: !!maDanhMuc,
+  });
+
+  devLog("data from params:", data);
+  devLog("isLoading:", isLoading);
+  devLog("isError:", isError);
 
   if (isError) return <div>Fail loading the courses list...</div>;
   if (isLoading)
@@ -25,11 +37,10 @@ export default function TimKiemKhoaHoc() {
 
   return (
     <div className="container mx-auto">
-      {searchKey && <div></div>}
       {data && (
         <section className="course__list p-6 space-y-7 py-12">
           <h2 className="text-3xl font-bold text-algo-charcoal">
-            Search for {searchKey}
+            {data[0].danhMucKhoaHoc.tenDanhMucKhoaHoc}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9  bg-[#fefefe]">
             {data.map((course) => (

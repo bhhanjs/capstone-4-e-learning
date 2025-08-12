@@ -74,7 +74,7 @@ export default function Register() {
   return (
     <div>
       <Toaster position="top-right" offset={70} />
-      <div className="login__content px-20 sm:w-8/12 sm:mx-auto sm:px-10 md:px-0 md:w-10/12 md:mx-auto">
+      <div className="login__content w-10/12 mx-auto sm:px-10 md:w-12/12 md:px-0 xl:px-5">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-10 text-center text-algo-charcoal mb-">
           Log in to continue your <br />
           learning journey
@@ -84,7 +84,7 @@ export default function Register() {
             className="login__form space-y-12"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="login__form__group">
                 <Controller
                   control={control}

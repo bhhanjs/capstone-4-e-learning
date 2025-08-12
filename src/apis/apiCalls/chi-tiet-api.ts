@@ -25,23 +25,21 @@ export interface NguoiTAO {
   maLoaiNguoiDung: string;
   tenLoaiNguoiDung: string;
 }
+export interface ParamsType {
+  maKhoaHoc: string;
+}
 
-const danhSachKhoaHocAPI = async function (
-  searchQuery: string = ""
-): Promise<KhoaHoc[]> {
+const chiTietApi = async function (params: ParamsType): Promise<KhoaHoc> {
   try {
-    const url = searchQuery
-      ? `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${encodeURIComponent(
-          searchQuery
-        )}&MaNhom=GP01`
-      : "/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01";
-    const response = await fetcher.get<KhoaHoc[]>(url);
-    console.log("danh sach khoa hoc reponse api:", response.data);
+    const response = await fetcher.get("/QuanLyKhoaHoc/LayThongTinKhoaHoc", {
+      params,
+    });
+    console.log("chi tiet api:", response.data);
     return response.data;
   } catch (error) {
-    console.log("danh sach khoa hoc api error:", error);
+    console.log("error chi tiet api", error);
     throw error;
   }
 };
 
-export default danhSachKhoaHocAPI;
+export default chiTietApi;

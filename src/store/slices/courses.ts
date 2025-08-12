@@ -4,12 +4,14 @@ import type { KhoaHoc } from "@/apis/apiCalls/danh-sach-khoa-hoc-api";
 
 interface CoursesState {
   danhMuc: DanhMuc[];
-  khoaHoc: KhoaHoc[];
+  top8KhoaHoc: KhoaHoc[];
+  searchKey: string
 }
 
 const initialState: CoursesState = {
   danhMuc: [],
-  khoaHoc: [],
+  top8KhoaHoc: [],
+  searchKey: ""
 };
 
 const coursesSlice = createSlice({
@@ -19,11 +21,14 @@ const coursesSlice = createSlice({
     setDanhMuc: (state, action: PayloadAction<DanhMuc[]>) => {
       state.danhMuc = action.payload;
     },
-    setKhoaHoc: (state, action: PayloadAction<KhoaHoc[]>) => {
-      state.khoaHoc = action.payload;
+    setTop8KhoaHoc: (state, action: PayloadAction<KhoaHoc[]>) => {
+      state.top8KhoaHoc = action.payload;
     },
+    setSearchKey: (state, action)=>{
+      state.searchKey = action.payload
+    }
   },
 });
 
-export const { setDanhMuc, setKhoaHoc } = coursesSlice.actions;
+export const { setDanhMuc, setTop8KhoaHoc, setSearchKey } = coursesSlice.actions;
 export default coursesSlice.reducer;

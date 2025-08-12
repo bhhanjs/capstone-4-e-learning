@@ -72,6 +72,7 @@ export default tseslint.config([
 
 - https://www.udemy.com/
 - https://elearningnew.cybersoft.edu.vn/swagger/index.html
+- Link server: https://elearningnew.cybersoft.edu.vn/swagger/index.html
 
 ## Project description
 
@@ -171,9 +172,11 @@ h. khoá học đã ghi danh
 10. utils: functions tái sử dụng
 
 ## CSS:
+
 1. Color
-+ Fresh Off-White (background)
-+ Clean Charcoal (text)
-+ Soft Mint Green (accents, buttons)
-+ Bright Sage (hover, highlights, icons)
-+ Soft Peach (hightlight, alert)
+
+- Fresh Off-White (background)
+- Clean Charcoal (text)
+- Soft Mint Green (accents, buttons)
+- Bright Sage (hover, highlights, icons)
+- Soft Peach (hightlight, alert)

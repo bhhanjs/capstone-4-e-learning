@@ -3,14 +3,15 @@ import type { ReactElement } from "react";
 import PATH from "./path";
 import HomeLayout from "../components/layouts/home-layout";
 import HomePage from "../pages/homepage";
-import DanhMucKhoaHoc from "../pages/danh-muc-khoa-hoc";
+import KhoaHocTheoDanhMuc from "@/pages/khoa-hoc-theo-danh-muc";
 import TimKiemKhoaHoc from "../pages/tim-kiem-khoa-hoc";
 import ChiTiet from "../pages/chi-tiet";
-import DashboardLyaout from "@/components/layouts/dashboard-layout";
+import AuthLayout from "@/components/layouts/auth-layout";
 
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
 import NotFound from "../pages/not-found";
+import ThongTinTaiKhoan from "@/pages/thong-tin-tai-khoan";
 
 const useRouterElements = function (): ReactElement | null {
   const elements = useRoutes([
@@ -23,8 +24,8 @@ const useRouterElements = function (): ReactElement | null {
           element: <HomePage />,
         },
         {
-          path: PATH.DANH_MUC_KHOA_HOC,
-          element: <DanhMucKhoaHoc />,
+          path: PATH.DANH_MUC_THEO_DANH_MUC,
+          element: <KhoaHocTheoDanhMuc />,
         },
 
         {
@@ -35,10 +36,14 @@ const useRouterElements = function (): ReactElement | null {
           path: PATH.CHI_TIET,
           element: <ChiTiet />,
         },
+        {
+          path: PATH.THONG_TIN_TAI_KHOAN,
+          element: <ThongTinTaiKhoan/>
+        }
       ],
     },
     {
-      element: <DashboardLyaout />,
+      element: <AuthLayout />,
       children: [
         {
           path: PATH.DANG_KY,
