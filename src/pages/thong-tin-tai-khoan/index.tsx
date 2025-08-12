@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import thongTinNguoiDungApi from "@/apis/apiCalls/thong-tin-nguoi-dung-api";
-import devLog from "@/utils/loggerFn";
+
 import { Button } from "@/components/ui/button";
 
 export default function ThongTinTaiKhoan() {
