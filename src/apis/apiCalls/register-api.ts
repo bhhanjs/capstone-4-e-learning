@@ -25,7 +25,6 @@ const registerAPI = async function (
       "/QuanLyNguoiDung/DangKy",
       data
     );
-    console.log("response register api:", response);
     return response.data.content;
   } catch (error) {
     console.log("error register api:", error);

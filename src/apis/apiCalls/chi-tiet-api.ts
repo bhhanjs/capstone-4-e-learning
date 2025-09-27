@@ -34,7 +34,6 @@ const chiTietApi = async function (params: ParamsType): Promise<KhoaHoc> {
     const response = await fetcher.get("/QuanLyKhoaHoc/LayThongTinKhoaHoc", {
       params,
     });
-    console.log("chi tiet api:", response.data);
     return response.data;
   } catch (error) {
     console.log("error chi tiet api", error);

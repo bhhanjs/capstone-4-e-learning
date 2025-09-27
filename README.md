@@ -180,3 +180,31 @@ h. khoá học đã ghi danh
 - Soft Mint Green (accents, buttons)
 - Bright Sage (hover, highlights, icons)
 - Soft Peach (hightlight, alert)
+
+
+
+EXAMPLE CODE:
+
+BUTTON:
+  const pageStart = Math.max(0, page - 3);
+  const pageEnd = Math.min(totalPages, pageStart + 5);
+ <!-- {Array.from({ length: totalPages })
+      .slice(pageStart, pageEnd)
+      .map((_, i) => {
+        const pageNumber = pageStart + i + 1;
+        console.log(pageNumber);
+        return (
+          <div key={pageNumber}>
+            {" "}
+            <Button
+              variant={page === pageNumber ? "default" : "outline"}
+              className={` ${
+                page === pageNumber ? "page" : "pageNumber"
+              }`}
+              onClick={() => setPage(pageNumber)}
+            >
+              {pageNumber}
+            </Button>
+          </div>
+        );
+      })} -->

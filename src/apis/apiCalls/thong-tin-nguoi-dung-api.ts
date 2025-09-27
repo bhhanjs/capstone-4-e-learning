@@ -1,6 +1,28 @@
 import fetcher from "../fetcher";
 
-const thongTinNguoiDungApi = async function () {
+export interface ChiTietKhoaHocGhiDanh {
+  maKhoaHoc: string;
+  tenKhoaHoc: string;
+  biDanh: string;
+  moTa: string;
+  luotXem: number;
+  hinhAnh: string;
+  ngayTao: Date;
+  danhGia: number;
+}
+
+export interface UserInfoUI {
+  chiTietKhoaHocGhiDanh: ChiTietKhoaHocGhiDanh[];
+  taiKhoan: string;
+  matKhau: string;
+  hoTen: string;
+  soDT: string;
+  maLoaiNguoiDung: string;
+  maNhom: string;
+  email: string;
+}
+
+const thongTinNguoiDungApi = async function (): Promise<UserInfoUI> {
   try {
     const response = await fetcher.post("/QuanLyNguoiDung/ThongTinTaiKhoan");
     console.log(response);

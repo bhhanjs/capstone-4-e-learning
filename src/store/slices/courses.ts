@@ -5,13 +5,13 @@ import type { KhoaHoc } from "@/apis/apiCalls/danh-sach-khoa-hoc-api";
 interface CoursesState {
   danhMuc: DanhMuc[];
   top8KhoaHoc: KhoaHoc[];
-  searchKey: string
+  searchKey: string;
 }
 
 const initialState: CoursesState = {
   danhMuc: [],
   top8KhoaHoc: [],
-  searchKey: ""
+  searchKey: "",
 };
 
 const coursesSlice = createSlice({
@@ -24,11 +24,12 @@ const coursesSlice = createSlice({
     setTop8KhoaHoc: (state, action: PayloadAction<KhoaHoc[]>) => {
       state.top8KhoaHoc = action.payload;
     },
-    setSearchKey: (state, action)=>{
-      state.searchKey = action.payload
-    }
+    setSearchKey: (state, action) => {
+      state.searchKey = action.payload;
+    },
   },
 });
 
-export const { setDanhMuc, setTop8KhoaHoc, setSearchKey } = coursesSlice.actions;
+export const { setDanhMuc, setTop8KhoaHoc, setSearchKey } =
+  coursesSlice.actions;
 export default coursesSlice.reducer;

@@ -140,7 +140,6 @@
     @apply h-13 px-20 w-full text-lg rounded-none bg-algo-bright-sage text-algo-off-white hover:bg-algo-mint-green cursor-pointer;
   }
 
-
   .button-filled {
     @apply bg-algo-bright-sage hover:bg-algo-mint-green;
   }
@@ -155,5 +154,50 @@
 
   .footer__link-social {
     @apply h-6 w-6 hover:text-algo-bright-sage;
+  }
+
+  /* dashboard */
+  .btn-toggle {
+    @apply rounded-lg px-3 py-4  font-medium transition-colors flex flex-col h-fit;
+  }
+
+  .btn-toggle-inactive {
+    @apply bg-algo-off-white text-algo-bright-sage border-algo-bright-sage border-2 hover:bg-gray-100;
+  }
+
+  .btn-toggle-active {
+    @apply bg-algo-bright-sage text-algo-off-white   hover:bg-algo-mint-green;
+  }
+
+  .table-header-cell {
+    @apply border border-gray-300 text-center;
+  }
+  .table-body-cell {
+    @apply border border-gray-300;
+  }
+  .page {
+    @apply scale-110 bg-algo-bright-sage text-algo-charcoal transition-all ease-in duration-75 transform hover:bg-algo-bright-sage hover:text-algo-charcoal;
+  }
+  .pageNumber {
+    @apply scale-100 bg-algo-off-white border-2 border-algo-bright-sage text-algo-charcoal hover:bg-algo-mint-green transition-all ease-out duration-75 transform;
+  }
+
+  .input-group-adding-user {
+    @apply flex items-center space-x-2;
+  }
+  .input-adding-user {
+    @apply w-5 h-5 text-gray-500;
+  }
+
+  .input-group-adding-course {
+    @apply flex items-center space-x-2 px-3;
+  }
+  .input-adding-course {
+    @apply w-5 h-5 text-gray-500;
+  }
+
+  /* ckeditor */
+  .ck-editor__editable_inline {
+    min-height: 120px; /* starts taller */
   }
 }

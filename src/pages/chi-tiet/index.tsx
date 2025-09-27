@@ -1,18 +1,73 @@
 import useDetails from "@/hooks/hook-details";
 import { useParams } from "react-router-dom";
 import type { ParamsType } from "@/apis/apiCalls/chi-tiet-api";
-import devLog from "@/utils/loggerFn";
 import { Skeleton } from "@/components/ui/skeleton";
-import courseImg from "@/assets/cute-astronaut-icon/1974.jpg";
+import courseImg from "@/assets/20944332.jpg";
+import type { DataType } from "@/apis/apiCalls/dang-ky-khoa-hoc-api";
+import { useAppSelector, useAppDispatch } from "@/hooks/hook";
+import { useMutation } from "@tanstack/react-query";
+import dangKyKhoahocApi from "@/apis/apiCalls/dang-ky-khoa-hoc-api";
+import { useNavigate } from "react-router-dom";
+import PATH from "@/routes/path";
+import thongTinNguoiDungApi from "@/apis/apiCalls/thong-tin-nguoi-dung-api";
+import { setUserInfoUI } from "@/store/slices/user";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 export default function ChiTiet() {
+  const dispatch = useAppDispatch();
+  const { userInfoUI } = useAppSelector((state) => state.userSlice);
+  const navigate = useNavigate();
   const { maKhoaHoc } = useParams();
   const params: ParamsType = maKhoaHoc ? { maKhoaHoc } : { maKhoaHoc: "" };
   console.log("maKhoaHoc:", maKhoaHoc);
   const { data, isLoading, isError } = useDetails(params);
-  devLog("ChiTiet:", data);
-  devLog(isLoading);
-  devLog(isError);
+
+  const dangKyMutation = useMutation({
+    mutationFn: (data: DataType) => dangKyKhoahocApi(data),
+    mutationKey: ["dang ky khoa hoc"],
+    onSuccess: async () => {
+      console.log("data:", data);
+      try {
+        const updateUserInfoUI = await thongTinNguoiDungApi();
+        console.log("updateUserInfoUI:", updateUserInfoUI);
+        dispatch(setUserInfoUI(updateUserInfoUI));
+        toast.success("🎉 Đăng ký thành công!");
+      } catch (error) {
+        console.log("error update user info ui:", error);
+        throw error;
+      }
+    },
+
+    onError: (error) => {
+      console.log("error:", error);
+      throw error;
+    },
+  });
+
+  let isExist = false;
+  if (userInfoUI) {
+    isExist = userInfoUI.chiTietKhoaHocGhiDanh?.some(
+      (course) => course.maKhoaHoc === maKhoaHoc
+    );
+  }
+  console.log("isExist", isExist);
+
+  const handleDangKy = function () {
+    if (!userInfoUI) {
+      navigate(PATH.DANG_NHAP);
+      return;
+    }
+    if (userInfoUI && maKhoaHoc) {
+      const taiKhoan = userInfoUI?.taiKhoan;
+
+      const dangKydata: DataType = {
+        maKhoaHoc,
+        taiKhoan,
+      };
+      dangKyMutation.mutate(dangKydata);
+    }
+  };
 
   if (isError)
     return <div className="container">Fail loading the courses details...</div>;
@@ -113,14 +168,23 @@ export default function ChiTiet() {
           {/* Enroll button */}
           <div className="mt-8 text-center">
             <button
-              className="bg-algo-bright-sage hover:bg-algo-mint-green text-algo-charcoal font-semibold px-6 py-3 rounded-lg shadow-md transition"
+              className={`bg-algo-bright-sage  text-algo-off-white font-semibold px-6 py-3 rounded-lg shadow-md transition ${
+                isExist
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-algo-mint-green"
+              }`}
+              disabled={!!isExist}
               type="button"
+              onClick={() => {
+                handleDangKy();
+              }}
             >
-              Enroll Now
+              {isExist ? "Đã đăng ký" : "Đăng ký"}
             </button>
           </div>
         </div>
       )}
+      <Toaster />
     </div>
   );
 }

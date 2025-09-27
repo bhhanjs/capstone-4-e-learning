@@ -6,38 +6,38 @@ interface ParamsType {
 }
 
 export interface KhoaHoc {
-    maKhoaHoc:      string;
-    biDanh:         string;
-    tenKhoaHoc:     string;
-    moTa:           string;
-    luotXem:        number;
-    hinhAnh:        string;
-    maNhom:         string;
-    ngayTao:        string;
-    soLuongHocVien: number;
-    nguoiTao:       NguoiTAO;
-    danhMucKhoaHoc: DanhMucKhoaHoc;
+  maKhoaHoc: string;
+  biDanh: string;
+  tenKhoaHoc: string;
+  moTa: string;
+  luotXem: number;
+  hinhAnh: string;
+  maNhom: string;
+  ngayTao: string;
+  soLuongHocVien: number;
+  nguoiTao: NguoiTAO;
+  danhMucKhoaHoc: DanhMucKhoaHoc;
 }
 
 export interface DanhMucKhoaHoc {
-    maDanhMucKhoahoc:  string;
-    tenDanhMucKhoaHoc: string;
+  maDanhMucKhoahoc: string;
+  tenDanhMucKhoaHoc: string;
 }
 
 export interface NguoiTAO {
-    taiKhoan:         string;
-    hoTen:            string;
-    maLoaiNguoiDung:  string;
-    tenLoaiNguoiDung: string;
+  taiKhoan: string;
+  hoTen: string;
+  maLoaiNguoiDung: string;
+  tenLoaiNguoiDung: string;
 }
 
-const khoaHocTheoDanhMucApi = async function (params: ParamsType): Promise<KhoaHoc[]> {
+const khoaHocTheoDanhMucApi = async function (
+  params: ParamsType
+): Promise<KhoaHoc[]> {
   try {
     const response = await fetcher.get("/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc", {
-      params:params
+      params: params,
     });
-    console.log("params:", params);
-    console.log("api response params:", response.data);
     return response.data;
   } catch (error) {
     console.log("error api khoa hoc theo danh muc:", error);

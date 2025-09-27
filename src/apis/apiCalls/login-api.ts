@@ -23,7 +23,6 @@ const loginAPI = async function (data: LoginDataType): Promise<LoginResponse> {
       "/QuanLyNguoiDung/DangNhap",
       data
     );
-    console.log("response login:", response);
     return response.data;
   } catch (error: unknown) {
     console.log("error of login api", error);

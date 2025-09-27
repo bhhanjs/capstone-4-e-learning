@@ -6,7 +6,8 @@ const PATH = {
   DANG_KY: "/register",
   DANG_NHAP: "/login",
   THONG_TIN_TAI_KHOAN: "thong-tin-tai-khoan",
-  KHOA_HOC_CUA_TOI: "khoa-hoc-cua-toi",
+  QUAN_LY_KHOA_HOC: "quan-ly-khoa-hoc",
+  QUAN_LY_NGUOI_DUNG: "quan-ly-nguoi-dung",
   NOT_FOUND: "*",
 } as const;
 

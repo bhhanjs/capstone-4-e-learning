@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/store/slices/user";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import thongTinNguoiDungApi from "@/apis/apiCalls/thong-tin-nguoi-dung-api";
+import { setUserInfoUI, setIsLogin } from "@/store/slices/user";
 
 interface LoginFormDataType {
   taiKhoan: string;
@@ -22,6 +24,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // hook form 
   const {
     control,
     handleSubmit,
@@ -36,15 +39,33 @@ export default function Login() {
     mode: "onChange",
   });
 
+  
+
+  const userInfoMutation = useMutation({
+    mutationFn: () => {
+      return thongTinNguoiDungApi();
+    },
+    onSuccess: (data) => {
+      console.log("data:", data);
+      dispatch(setUserInfoUI(data));
+      dispatch(setIsLogin());
+      navigate(PATH.HOME);
+    },
+
+    onError: (error) => {
+      console.log("error:", error);
+    },
+  });
+
   const loginMutation = useMutation({
     mutationFn: (data: LoginFormDataType) => {
       return loginAPI(data);
     },
     onSuccess: (response) => {
-      console.log("tanstack login response :", response);
+      console.log("tanstack login response:", response);
       toast.success("Login successful!");
+      userInfoMutation.mutate();
       dispatch(setUser(response));
-      navigate(PATH.HOME);
       reset();
     },
     onError: (error) => {
@@ -60,7 +81,6 @@ export default function Login() {
 
   return (
     <div>
-      <Toaster position="top-right" offset={70} />
       <div className="login__content px-20 sm:w-8/12 sm:mx-auto sm:px-10 md:px-0 md:w-10/12 md:mx-auto">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-10 text-center text-algo-charcoal mb-">
           Log in to continue your <br />
@@ -118,6 +138,7 @@ export default function Login() {
           </form>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

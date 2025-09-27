@@ -1,7 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { LOCAL_USER } from "@/constants/config";
+import type { UserInfoUI } from "@/apis/apiCalls/thong-tin-nguoi-dung-api";
 
-interface UserInfo {
+export interface UserInfo {
   taiKhoan: string;
   email: string;
   soDT: string;
@@ -13,6 +14,8 @@ interface UserInfo {
 
 interface UserState {
   userInfo: UserInfo | null;
+  userInfoUI: UserInfoUI | null;
+  isLogin: boolean;
 }
 
 // const initialState: UserState = {
@@ -46,6 +49,8 @@ const getLocalstorage = function (): UserInfo | null {
 
 const initialState: UserState = {
   userInfo: getLocalstorage(),
+  userInfoUI: null,
+  isLogin: false,
 };
 
 const userSlice = createSlice({
@@ -56,10 +61,22 @@ const userSlice = createSlice({
       state.userInfo = action.payload;
       localStorage.setItem(LOCAL_USER, JSON.stringify(action.payload));
     },
+    setUserInfoUI: (state, action: PayloadAction<UserInfoUI>) => {
+      state.userInfoUI = action.payload;
+    },
+    setIsLogin: (state) => {
+      state.isLogin = true;
+    },
+    setLogOut: (state) => {
+      localStorage.removeItem(LOCAL_USER);
+      state.userInfo = null;
+      state.userInfoUI = null;
+      state.isLogin = false;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setUserInfoUI, setIsLogin, setLogOut } = userSlice.actions;
 export default userSlice.reducer;
 
 /**   userInfo: JSON.parse(localStorage.getItem(localUser.user)) || underfined,

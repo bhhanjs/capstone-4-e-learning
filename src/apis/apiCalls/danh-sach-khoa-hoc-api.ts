@@ -33,11 +33,10 @@ const danhSachKhoaHocAPI = async function (
     const url = searchQuery
       ? `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${encodeURIComponent(
           searchQuery
-        )}&MaNhom=GP01`
-      : "/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01";
-    const response = await fetcher.get<KhoaHoc[]>(url);
-    console.log("danh sach khoa hoc reponse api:", response.data);
-    return response.data;
+        )}`
+      : "/QuanLyKhoaHoc/LayDanhSachKhoaHoc";
+    const response = await fetcher.get(url);
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.log("danh sach khoa hoc api error:", error);
     throw error;

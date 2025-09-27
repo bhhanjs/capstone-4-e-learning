@@ -7,11 +7,13 @@ import KhoaHocTheoDanhMuc from "@/pages/khoa-hoc-theo-danh-muc";
 import TimKiemKhoaHoc from "../pages/tim-kiem-khoa-hoc";
 import ChiTiet from "../pages/chi-tiet";
 import AuthLayout from "@/components/layouts/auth-layout";
-
+import DashboardLayout from "@/components/layouts/dashboard-layout";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
 import NotFound from "../pages/not-found";
 import ThongTinTaiKhoan from "@/pages/thong-tin-tai-khoan";
+import QuanLyNguoiDung from "@/pages/dashboard/quan-ly-nguoi-dung";
+import QuanLyKhoaHoc from "@/pages/dashboard/quan-ly-khoa-hoc";
 
 const useRouterElements = function (): ReactElement | null {
   const elements = useRoutes([
@@ -42,6 +44,7 @@ const useRouterElements = function (): ReactElement | null {
         },
       ],
     },
+
     {
       element: <AuthLayout />,
       children: [
@@ -52,6 +55,20 @@ const useRouterElements = function (): ReactElement | null {
         {
           path: PATH.DANG_NHAP,
           element: <Login />,
+        },
+      ],
+    },
+
+    {
+      element: <DashboardLayout />,
+      children: [
+        {
+          path: PATH.QUAN_LY_KHOA_HOC,
+          element: <QuanLyKhoaHoc />,
+        },
+        {
+          path: PATH.QUAN_LY_NGUOI_DUNG,
+          element: <QuanLyNguoiDung />,
         },
       ],
     },

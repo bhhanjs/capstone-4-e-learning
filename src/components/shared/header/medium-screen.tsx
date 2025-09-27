@@ -1,4 +1,9 @@
-import { useEffect, type ChangeEvent, type KeyboardEvent, useState } from "react";
+import {
+  useEffect,
+  type ChangeEvent,
+  type KeyboardEvent,
+  useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
@@ -14,9 +19,9 @@ import danhMucAPI from "@/apis/apiCalls/danh-muc-api";
 import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "@/hooks/hook";
 import { setDanhMuc, setSearchKey } from "@/store/slices/courses";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, User, Settings } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import devLog from "@/utils/loggerFn";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface DanhMuc {
   maDanhMuc: string;
@@ -28,13 +33,13 @@ export default function MediumScreen() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { danhMuc } = useAppSelector((state) => state.coursesSlice);
+  const { isLogin } = useAppSelector((state) => state.userSlice);
+  const { userInfo } = useAppSelector((state) => state.userSlice);
 
   const { data, isLoading, isError } = useQuery<DanhMuc[]>({
     queryKey: ["danhMuc"],
     queryFn: danhMucAPI,
   });
-
-  devLog("data:", data);
 
   useEffect(() => {
     if (!isLoading && data) {
@@ -52,6 +57,14 @@ export default function MediumScreen() {
     if (event.key === "Enter") {
       dispatch(setSearchKey(searchValue));
       navigate(PATH.TIM_KIEM_KHOA_HOC);
+    }
+  };
+
+  const handleClickUser = () => {
+    if (isLogin) {
+      navigate(PATH.THONG_TIN_TAI_KHOAN);
+    } else {
+      navigate(PATH.DANG_NHAP);
     }
   };
 
@@ -120,6 +133,33 @@ export default function MediumScreen() {
                 Register
               </Link>
             </Button>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={handleClickUser}
+              className="rounded-full border-algo-solf-peach text-algo-bright-sage hover:text-algo-bright-sage border-2 hover:border-1 bg-algo-off-white hover:bg-algo-off-white font-bold w-10 h-10 "
+              title={isLogin ? "Go to Account" : "Register"}
+            >
+              {isLogin && userInfo ? (
+                <Avatar className="w-10 h-10  border-algo-solf-peach border-2 hover:border-1">
+                  <AvatarImage
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      userInfo?.hoTen || ""
+                    )}&background=fafaf5&color=76b39d`}
+                    alt={userInfo?.hoTen || "User Avatar"}
+                  />
+                  <AvatarFallback>{userInfo?.hoTen?.[0] || "?"}</AvatarFallback>
+                </Avatar>
+              ) : (
+                <User className="w-6 h-6" />
+              )}
+            </Button>
+
+            <div className="flex items-center">
+              <Settings className="w-8 h-8 text-algo-bright-sage hover:text-algo-mint-green" onClick={()=>{
+                navigate(PATH.QUAN_LY_NGUOI_DUNG)
+              }} />
+            </div>
           </div>
         </>
       )}

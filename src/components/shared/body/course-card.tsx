@@ -52,8 +52,11 @@ const CourseCard: FC<CourseCardProps> = function ({ course }) {
               <span className="text-sm text-[#50c1a3] font-semibold">
                 👁 {course.luotXem}
               </span>
-              <Button className="bg-algo-mint-green hover:bg-algo-mint-green/80 text-algo-charcoal px-6 py-1 text-sm">
-                Đăng Ký
+              <Button
+                className="bg-algo-mint-green hover:bg-algo-mint-green/80 text-algo-charcoal px-6 py-1 text-sm"
+                onClick={() => handleClick(course.maKhoaHoc)}
+              >
+                Xem chi tiết
               </Button>
             </div>
           </div>

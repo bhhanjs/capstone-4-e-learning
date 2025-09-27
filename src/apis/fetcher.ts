@@ -17,8 +17,8 @@ fetcher.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   let token = "";
   try {
     const user = JSON.parse(localStorage.getItem(LOCAL_USER) || "null");
-    if (user) console.log("there is user:", user);
-    if (!user) console.log("there is not user");
+    // if (user) console.log("there is user:", user);
+    // if (!user) console.log("there is not user");
     token = user?.accessToken || "";
 
     if (token && config.headers) {
