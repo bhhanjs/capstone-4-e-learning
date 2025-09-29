@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogContentLarge,
@@ -292,13 +291,43 @@ export default function AddCourseModal({ open, onOpenChange }: OpenAddModal) {
                 name="hinhAnh"
                 render={({ field, formState: { errors } }) => (
                   <div className="flex flex-col gap-2">
-                    <InputCustom
+                    <input
                       type="file"
                       accept="image/*"
-                      error={errors?.hinhAnh?.message}
-                   
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+
+                        // upload to Cloudinary
+                        const formData = new FormData();
+                        formData.append("file", file);
+                        formData.append("upload_preset", "YOUR_UPLOAD_PRESET");
+
+                        try {
+                          const res = await axios.post(
+                            "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
+                            formData
+                          );
+
+                          // set image URL into form
+                          field.onChange(res.data.secure_url);
+                        } catch (err) {
+                          console.error("Upload failed:", err);
+                        }
+                      }}
                     />
-                 
+
+                    {/* Preview */}
+                    {field.value && (
+                      <img
+                        src={field.value}
+                        alt="preview"
+                        className="w-20 h-20 object-cover border rounded-md"
+                      />
+                    )}
+                    {errors.hinhAnh && (
+                      <p className="text-red-500">{errors.hinhAnh.message}</p>
+                    )}
                   </div>
                 )}
               />

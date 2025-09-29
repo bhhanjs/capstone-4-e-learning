@@ -11,6 +11,7 @@ type OpenModalProp = {
 };
 
 export default function TableSearch({ onAddClick }: OpenModalProp) {
+  console.log("re-render TableSearch");
   const dispatch = useAppDispatch();
   const { userInfoUI } = useAppSelector((state) => state.userSlice);
   const { activeContent } = useAppSelector((state) => state.dashboardSlice);

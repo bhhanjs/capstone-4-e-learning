@@ -155,11 +155,16 @@ export default function MediumScreen() {
               )}
             </Button>
 
-            <div className="flex items-center">
-              <Settings className="w-8 h-8 text-algo-bright-sage hover:text-algo-mint-green" onClick={()=>{
-                navigate(PATH.QUAN_LY_NGUOI_DUNG)
-              }} />
-            </div>
+            {isLogin && userInfo ? (
+              <div className="flex items-center">
+                <Settings
+                  className="w-8 h-8 text-algo-bright-sage hover:text-algo-mint-green"
+                  onClick={() => {
+                    navigate(PATH.QUAN_LY_NGUOI_DUNG);
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
         </>
       )}
