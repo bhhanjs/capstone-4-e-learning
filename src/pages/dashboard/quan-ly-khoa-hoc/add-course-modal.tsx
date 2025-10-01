@@ -28,7 +28,6 @@ import {
   Telescope,
   FileIcon,
 } from "lucide-react";
-import axios from "axios";
 
 import "ckeditor5/ckeditor5.css"; // required styles
 import { CKEditor } from "@ckeditor/ckeditor5-react";
