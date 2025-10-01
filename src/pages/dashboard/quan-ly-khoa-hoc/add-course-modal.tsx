@@ -28,7 +28,8 @@ import {
   Telescope,
   FileIcon,
 } from "lucide-react";
-import fileToBase64 from "@/utils/fileToBase64";
+import axios from "axios";
+
 import "ckeditor5/ckeditor5.css"; // required styles
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -41,6 +42,7 @@ import {
 } from "ckeditor5";
 import themKhoaHocApi from "@/apis/apiCalls/them-khoa-hoc-api";
 import { useAppSelector } from "@/hooks/hook";
+import fileToBase64 from "@/utils/fileToBase64";
 
 type OpenAddModal = {
   open: boolean;
@@ -95,6 +97,7 @@ export default function AddCourseModal({ open, onOpenChange }: OpenAddModal) {
     mutationFn: (data: FormAddCourse) => themKhoaHocApi(data),
     onSuccess: (response) => {
       console.log("Thêm khóa học thành công:", response);
+      reset();
     },
     onError: (error) => {
       console.error("Thêm khóa học thất bại:", error);
@@ -297,22 +300,11 @@ export default function AddCourseModal({ open, onOpenChange }: OpenAddModal) {
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (!file) return;
-
-                        // upload to Cloudinary
-                        const formData = new FormData();
-                        formData.append("file", file);
-                        formData.append("upload_preset", "YOUR_UPLOAD_PRESET");
-
                         try {
-                          const res = await axios.post(
-                            "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload",
-                            formData
-                          );
-
-                          // set image URL into form
-                          field.onChange(res.data.secure_url);
+                          const base64 = await fileToBase64(file);
+                          field.onChange(base64); // set base64 string into form
                         } catch (err) {
-                          console.error("Upload failed:", err);
+                          console.error("Error converting file:", err);
                         }
                       }}
                     />
